@@ -2,32 +2,29 @@
 
 import pandas as pd
 import numpy as np
-from sklearn.base import BaseEstimator, TransformerMixin
 
 
-class FeatureGeneratorLevel2(BaseEstimator, TransformerMixin):
+class FeatureGeneratorLevel2:
     """
     Generates contextual and interaction-based features.
+    Returns only newly created features.
     """
 
-    def fit(self, X, y=None):
-        return self
-
-    def transform(self, X):
-        X = X.copy()
+    def generate(self, X: pd.DataFrame) -> pd.DataFrame:
         df = pd.DataFrame(index=X.index)
 
-        # Age features
+        # Age-based features
         df["Age_squared"] = X["Age"] ** 2
         df["Age_Sex_interaction"] = X["Age"] * X["Sex"]
 
         # Heart rate features
         df["Heart_rate_reserve"] = X["Max HR"] - (220 - X["Age"])
+
         df["Low_HR_response_flag"] = (
             X["Max HR"] < 0.85 * (220 - X["Age"])
         ).astype(int)
 
-        # Chest pain encoding
+        # Chest pain ordinal encoding
         df["Chest_pain_risk_score"] = X["Chest pain type"].map({
             1: 0,
             2: 1,
@@ -35,7 +32,7 @@ class FeatureGeneratorLevel2(BaseEstimator, TransformerMixin):
             4: 3
         })
 
-        # EKG abnormal
+        # EKG abnormality
         df["Abnormal_EKG_flag"] = (X["EKG results"] != 0).astype(int)
 
         return df

@@ -2,19 +2,15 @@
 
 import pandas as pd
 import numpy as np
-from sklearn.base import BaseEstimator, TransformerMixin
 
 
-class FeatureGeneratorLevel3(BaseEstimator, TransformerMixin):
+class FeatureGeneratorLevel3:
     """
-    Generates background metabolic and risk-threshold features.
+    Generates background metabolic and threshold-based features.
+    Returns only newly created features.
     """
 
-    def fit(self, X, y=None):
-        return self
-
-    def transform(self, X):
-        X = X.copy()
+    def generate(self, X: pd.DataFrame) -> pd.DataFrame:
         df = pd.DataFrame(index=X.index)
 
         # Threshold flags
@@ -22,17 +18,17 @@ class FeatureGeneratorLevel3(BaseEstimator, TransformerMixin):
         df["High_Chol_flag"] = (X["Cholesterol"] >= 240).astype(int)
         df["FBS_over_120_flag"] = (X["FBS over 120"] == 1).astype(int)
 
-        # Metabolic score
+        # Metabolic risk score
         df["Metabolic_risk_score"] = (
             df["High_BP_flag"] +
             df["High_Chol_flag"] +
             df["FBS_over_120_flag"]
         )
 
-        # BP/Chol ratio
+        # BP / Chol ratio
         df["BP_Chol_ratio"] = X["BP"] / X["Cholesterol"]
 
-        # Age group
+        # Age group bins
         df["Age_group"] = pd.cut(
             X["Age"],
             bins=[0, 40, 50, 60, 100],
