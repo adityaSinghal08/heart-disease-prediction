@@ -1,42 +1,83 @@
-# Environment
+# =========================
+# Virtual Environments
+# =========================
 venv/
 env/
 ENV/
-.venv
+.venv/
+*.venv
 
-# Python
+# =========================
+# Python Cache / Build
+# =========================
 __pycache__/
+**/__pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-pip-log.txt
-pip-delete-this-directory.txt
+build/
+dist/
+*.egg-info/
+.eggs/
 
-# IDE
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# (Optional) Uncomment if you want to ignore notebooks
+# *.ipynb
+
+# =========================
+# IDE / Editor
+# =========================
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
 
-# OS
+# =========================
+# OS Files
+# =========================
 .DS_Store
 Thumbs.db
 
-# Data and Output
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Data & Outputs
+# =========================
 output/
-*.csv
+reports/
 *.xlsx
 
-# Jupyter
-.ipynb_checkpoints/
-*.ipynb
+# Ignore generated CSVs but keep raw data if needed
+fe_*.csv
+cleaned_*.csv
 
-# Models
+# =========================
+# Models / Artifacts
+# =========================
 *.pkl
 *.joblib
 *.h5
+*.model
 
-# Logs
-*.log
+# =========================
+# Coverage / Testing
+# =========================
+.coverage
+htmlcov/
+.pytest_cache/
+
+# =========================
+# Environment Config
+# =========================
+.env
+.env.*
