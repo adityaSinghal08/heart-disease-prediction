@@ -1,4 +1,4 @@
-# Feature Engineering Guide – Heart Disease Prediction
+# Pre-EDA Feature Engineering Guide
 
 ## Purpose of This Document
 
