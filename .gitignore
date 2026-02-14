@@ -54,7 +54,7 @@ Thumbs.db
 # Data & Outputs
 # =========================
 output/
-reports/
+# reports/
 *.xlsx
 
 # Ignore generated CSVs but keep raw data if needed
